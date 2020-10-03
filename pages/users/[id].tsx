@@ -4,6 +4,7 @@ import { User } from '../../interfaces'
 import { sampleUserData } from '../../utils/sample-data'
 import Layout from '../../components/Layout'
 import ListDetail from '../../components/ListDetail'
+import {useEffect} from "react";
 
 type Props = {
   item?: User
@@ -11,6 +12,10 @@ type Props = {
 }
 
 const StaticPropsDetail = ({ item, errors }: Props) => {
+  useEffect(() => {
+    Promise.resolve().then(() => console.log('CLIENT!!!!!'));
+  }, []);
+
   if (errors) {
     return (
       <Layout title="Error | Next.js + TypeScript Example">
@@ -49,6 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  console.log('ON SERVER?????');
   try {
     const id = params?.id
     const item = sampleUserData.find((data) => data.id === Number(id))
